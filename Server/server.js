@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 8080;
+
 const authRouter = require('./router/auth.js')
 const memberRouter = require('./router/member.js')
 
@@ -9,9 +9,17 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
-app.use('/auth',authRouter);
-//app.use('/member',memberRouter);
+app.set('port', process.env.PORT || 8080);
 
-app.listen(port, () => {
-    console.log(`server is listening at localhost:${port}`);
+app.use('/auth',authRouter);
+app.use('/member',memberRouter);
+
+app.get('/', (req, res) => {
+    console.log('root');
+    res.send('root');    
+});
+  
+
+app.listen(app.get('port'), () => {
+    console.log('Express server listening on port ' + app.get('port'));
 });
