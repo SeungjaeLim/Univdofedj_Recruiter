@@ -9,6 +9,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
+/*
+const conn = require('./config/database.js') 
+const db = conn.init() 
+conn.open(db)
+*/
+
 app.set('port', process.env.PORT || 8080);
 
 app.use('/auth',authRouter);
